@@ -1,40 +1,33 @@
 
 class Employee:
-    num_of_emps = 0
-    raise_amt = 1.04
-    
-
-    def __init__(self, first, last, pay):
+     
+    def __init__(self, first, last):
         self.first = first
         self.last = last
-        self.pay = pay
-        self.first = first
-        self.email = first + '.' + last + '@company.com'
 
-        Employee.num_of_emps += 1
+    @property
+    def email(self):
+        return f'{self.first} {self.last} @email.com'
 
+    @property
     def fullname(self):
         return f'{self.first} {self.last}'
 
-    def apply_raise(self):
-        self.pay = int(self.pay * self.raise_amt)
+    @fullname.setter
+    def fullname(self, name):
+        first, last = name.split(' ')
+        self.first = first
+        self.last = last
 
-    def __repr__(self):
-        return "Employee('{}', '{}', {})".format(self.first, self.last, self.pay)
-
-    def __str__(self):
-        return f'{self.fullname()} - {self.email}'
+    @fullname.deleter
+    def fullname(self, name):
+        print('Delete Name!')
+        self.first = None
+        self.last = None
     
-    def __add__(self,other):
-        return self.pay + other.pay
+emp_1 = Employee('John', 'Smith')
 
-    def __len__(self):
-         return  len(self.fullname())  
-
-emp_1 = Employee('Corey', 'Schafer', 50000)
-emp_2 = Employee('Test', 'Employee', 60000)
-
-print(len(emp_1))
-
-# print(repr(emp_1))
-# print(str(emp_1))
+emp_1.first = 'Cory Staver'
+print(emp_1.first)
+print(emp_1.email)
+print(emp_1.fullname)
